@@ -1,0 +1,13 @@
+{
+  "files.associations": {
+    "**/*.html": "html",
+    "**/templates/*/*.html": "django-html",
+    "**/templates/*": "django-html",
+    "**/requirements{/**,*}.{txt,in}": "pip-requirements"
+  },
+  "unibeautify.enabled": true,
+  "[django-html]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "Glavin001.unibeautify-vscode"
+  }
+}
