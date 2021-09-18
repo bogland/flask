@@ -1,4 +1,4 @@
-#prettier 이슈일때  
+# prettier 이슈일때  
 플러그인 설치
 
 1. Django Baptiste Darthenay
