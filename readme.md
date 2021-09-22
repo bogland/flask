@@ -24,6 +24,7 @@
 ```
 # Swagger 연동 - Flask-RESTX  
 https://flask-restx.readthedocs.io/en/latest/quickstart.html  
+https://justkode.kr/python/flask-restapi-1  
 
 # db연동 - Flask-SqlAlchemy  
 https://flask-sqlalchemy.palletsprojects.com/en/2.x/#  
