@@ -11,9 +11,10 @@
     />
 
     <link rel="stylesheet" href="https://unpkg.com/mvp.css" />
-    <title>Document</title>
+    <title>blog</title>
   </head>
   <body>
-    {% include 'common/header.html' %}
+    {% with user_id=user_id %} {% include 'common/header.html' %} {% endwith %}
+    <section></section>
   </body>
 </html>
