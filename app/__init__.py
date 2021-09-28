@@ -3,12 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime,timedelta
 from sqlalchemy import Column, Integer, String, DateTime, TIMESTAMP, text
 from sqlalchemy.sql import func
+import os 
 
 app = Flask(__name__)
 app.secret_key = 'secret'
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:0000@localhost:3306/blog"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
+
 
 @app.before_request
 def make_session_permanent():
@@ -21,12 +23,14 @@ class User(db.Model):
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     user_id = Column(String(20, 'utf8mb4_unicode_ci'))
     password = Column(String(45, 'utf8mb4_unicode_ci'))
+    image_url =  Column(String(45, 'utf8mb4_unicode_ci'))
     created_at = Column(TIMESTAMP, nullable=False, server_default=func.now())
     updated_at = Column(DateTime, server_default=text("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"))
 
-    def __init__(self, userid, password):
+    def __init__(self, userid, password, image_url):
         self.user_id = userid
         self.password = password
+        self.image_url = image_url
 
 db.create_all()
 @app.route('/')
@@ -43,11 +47,16 @@ def register():
         return render_template('register.html')
     user_id = request.form["userId"]
     password =  request.form["password"]
+    file = request.files['image']
+    image_dir = "static\\upload"
+    upload_url = os.path.join(image_dir, file.filename)
+    image_url = os.path.join(app.root_path,upload_url)
+    url = file.save(image_url)
     pre_user = User.query.filter_by(user_id=user_id).first()
     if pre_user:
         return render_template('register.html',message="이미가입됨")
 
-    user = User(user_id,password)
+    user = User(user_id,password,upload_url)
 
     db.session.add(user)
     db.session.commit()
@@ -58,9 +67,9 @@ def register():
 def login():
     if request.method == 'GET':
         return render_template('login.html')
-    
     user_id = request.form["userId"]
     password =  request.form["password"]
+
     user = User.query.filter_by(user_id=user_id,password=password).first()
     if not user:
         return render_template('login.html',message="아이디 혹은 비밀번호를 확인해보세요.")
@@ -70,20 +79,14 @@ def login():
     
 @app.route('/logout',methods=['GET','POST'])
 def logout():
-    session.pop('user_id', None)
+    # session.pop('user_id', None)
+    session.clear()
     return redirect(url_for('home'))
 
-
-
-@app.route("/one")
-def one():
-	member = User.query.first()
-	return 'Hello {0}, {1}, {2}, {3}, {4}'\
-		.format(member.name, member.email, member.phone, member.start.isoformat(), member.end.isoformat())
-	#return render_template('home.html')
-    
-@app.route('/all')
-def select_all():
-    members = User.query.all()
-    return "all"
-
+@app.route('/mypage',methods=['GET','POST'])
+def mypage():
+    user_id=''
+    if 'user_id' in session:
+    	user_id = session['user_id']
+    user = User.query.filter_by(user_id=user_id).first()
+    return render_template('mypage.html',user=user)
