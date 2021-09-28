@@ -1,4 +1,5 @@
-# prettier 이슈일때  
+# prettier 이슈일때
+
 플러그인 설치
 
 1. Django Baptiste Darthenay
@@ -28,3 +29,6 @@ https://justkode.kr/python/flask-restapi-1
 
 # db연동 - Flask-SqlAlchemy  
 https://flask-sqlalchemy.palletsprojects.com/en/2.x/#  
+
+set FLASK_APP=app  
+set FLASK_ENV=development
