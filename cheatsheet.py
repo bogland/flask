@@ -30,6 +30,9 @@ a = Counter('AAAABBB') # Counter({'A': 4, 'B': 3})
 b = Counter('AB') # Counter({'A': 1, 'B': 1})
 (a - b, a & b) # - : Counter({'A': 3, 'B': 2}) & : min , | : max
 a = product('ABCD', repeat=2) # [('A', 'A'), ('A', 'B'), ('A', 'C') ... , permutations, combinations
+a = dropwhile(lambda x: x < 10, [1, 4, 6, 7, 11, 34]) # [11, 34]
+a = takewhile(lambda x: x < 10, [1, 4, 6, 7, 11, 34]) # [1, 4, 6, 7]
+a = filter(lambda x: x < 10, [1, 4, 6, 7, 11, 34]) # [1, 4, 6, 7]
 
 #Heapq
 heap = [] # defaultdict(list)은 안되네
