@@ -33,6 +33,7 @@ a = product('ABCD', repeat=2) # [('A', 'A'), ('A', 'B'), ('A', 'C') ... , permut
 a = dropwhile(lambda x: x < 10, [1, 4, 6, 7, 11, 34]) # [11, 34]
 a = takewhile(lambda x: x < 10, [1, 4, 6, 7, 11, 34]) # [1, 4, 6, 7]
 a = filter(lambda x: x < 10, [1, 4, 6, 7, 11, 34]) # [1, 4, 6, 7]
+next((index for index,x in enumerate(list(a)) if x>5), None) # 조건 충족된 index출력, 2
 
 #Heapq
 heap = [] # defaultdict(list)은 안되네
