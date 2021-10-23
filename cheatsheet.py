@@ -37,6 +37,7 @@ heapq.heappush(heap, (3,3))
 heapq.heappush(heap, (1,1))
 heapq.heappush(heap, (2,2))
 min = heapq.heappop(heap) #제일작은 (1,1) pop
+heap_sort = [heapq.heappop(heap) for _ in range(len(heap))] #in heap으로 두면 안돌아감
 
 #Regex
 words = re.findall(r'\bf[a-z]*', 'which foot or fell') #['foot', 'fell']
