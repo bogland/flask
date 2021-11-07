@@ -3,6 +3,7 @@ from operator import itemgetter
 from collections import defaultdict,Counter
 import heapq
 import re 
+import functools
 
 #Tuple List to GroupBy
 a = cycle([1,2,3]) # 1 2 3 1 2 3 1 2 3 ...
@@ -49,6 +50,10 @@ words = re.findall(r'(\w+)=(\d+)', 'set width=20 and height=10') #[('width','20'
 words = re.findall(r'\d','1,2,3,4')
 words = re.findall(r'"(.*?)"','"hello"') # ['hello']
 words = re.search(r'[\w]+','123,123') #없으면 None, span(),start(),end()
+list_str = ["3","30"]
+list_str.sort(key=functools.cmp_to_key(lambda x,y: int(x+y)-int(y+x)), reverse=True)
+answer = "".join(list_str)
+answer = re.sub('^0+',"0",answer)
 
 text = '.+.lemons and limes.-.'
 word = text.strip('.+')  # 양끝에서 벗겨냄, lemons and limes.-
